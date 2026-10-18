@@ -12,7 +12,7 @@
     <link rel="icon" href="assets/icon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <style>
       :root {
         --bg: #0d0d0c;
@@ -25,9 +25,7 @@
         --accent: #e8703f;
         --blue: #3987e5;
         --good: #2fae6b;
-        --serif: 'Instrument Serif', Georgia, serif;
         --sans: 'Geist', 'Segoe UI', system-ui, sans-serif;
-        --mono: 'Geist Mono', ui-monospace, monospace;
       }
       * {
         box-sizing: border-box;
@@ -109,8 +107,8 @@
         border-radius: 10px;
       }
       .eyebrow {
-        font: 500 12px var(--mono);
-        letter-spacing: 0.1em;
+        font: 600 12px var(--sans);
+        letter-spacing: 0.08em;
         text-transform: uppercase;
         color: var(--muted);
       }
@@ -119,12 +117,13 @@
         padding: 72px 0 40px;
       }
       h1 {
-        font: 400 clamp(46px, 7vw, 86px) / 0.98 var(--serif);
-        letter-spacing: -0.02em;
+        font: 700 clamp(42px, 6.4vw, 76px) / 1.02 var(--sans);
+        letter-spacing: -0.045em;
         margin: 18px auto 20px;
         max-width: 900px;
       }
       h1 em {
+        font-style: normal;
         color: var(--accent);
       }
       .lead {
@@ -141,7 +140,7 @@
       }
       .fine {
         margin-top: 14px;
-        font: 13px var(--mono);
+        font: 500 13px var(--sans);
         color: var(--muted);
       }
       .shot {
@@ -180,9 +179,9 @@
         padding: 90px 0 10px;
       }
       h2 {
-        font: 400 clamp(36px, 5vw, 54px) / 1.05 var(--serif);
+        font: 700 clamp(30px, 4.2vw, 44px) / 1.1 var(--sans);
         margin: 10px 0 14px;
-        letter-spacing: -0.01em;
+        letter-spacing: -0.035em;
       }
       .sub {
         color: var(--text-2);
@@ -258,7 +257,8 @@
         gap: 14px;
       }
       .price {
-        font: 400 46px/1 var(--serif);
+        font: 700 44px/1 var(--sans);
+        letter-spacing: -0.04em;
         margin: 10px 0 4px;
       }
       .card.pro {
