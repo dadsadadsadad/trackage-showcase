@@ -1,40 +1,34 @@
-# Privacy Policy
+# Privacy
 
 _Last updated: October 19, 2026_
 
-AI Manager is a desktop app that runs entirely on your computer. This page explains what it reads, what it stores and what it never does.
+Trackage is a website plus a small command-line collector. The full privacy policy is published on the Trackage website at launch; this is the short version.
 
-## What AI Manager reads
+## What the collector sends
 
-- Session logs that **Claude Code** saves in `~/.claude/projects`.
-- Session logs that **Codex** saves in `~/.codex/sessions`.
-- Any extra folders you add in **Settings → Data & sources**.
-- A ChatGPT data export, only if you choose to import one.
+Per agent session: token counts, timestamps, model names, tool names with success or failure, context size, lines added and removed, and a project label you control (or a hash, or nothing). Session and file ids are anonymised with a secret that stays on your computer.
 
-These files are read, never modified. They can contain your prompts and code; that content is shown to you in the app and goes nowhere else.
+At the **standard** level it also sends command names without arguments (for example `npm test`) and anonymous file ids with only the extension. At the **detailed** level, which is off by default, it adds session titles, short prompt previews and file paths inside the project.
 
-## What AI Manager stores
+## What is never sent
 
-All in your user profile, on your computer:
+Full prompts, model replies, code, diffs, file contents, tool inputs and outputs, shell command arguments, absolute paths, branch names, environment variables or secrets. The server rejects any upload that contains free text.
 
-- `~/.aimanager/config.json`: your settings, budgets, alert choices and license key.
-- `~/.aimanager/archive/`: copies of your logs, only if you turn on **Keep history**.
-- `~/.aimanager/imports/`: an imported ChatGPT export, if any.
-- Window position and size, in the app's own data folder.
+Run `trackage sync --dry-run` to see the exact payload before anything leaves your machine.
 
-Uninstalling the app leaves `~/.aimanager` in place so you don't lose history; delete that folder to remove everything.
+## What we never do
 
-## What AI Manager never does
+- Sell or share your own data.
+- Use advertising or third-party tracking cookies.
 
-- It does not upload your data, prompts, code or usage anywhere.
-- It has no analytics, telemetry, ads or tracking.
-- It does not require an account.
-- Its dashboard is served only to your own computer (`127.0.0.1`). Network mode is opt-in and protected by a token.
+Two programs exist only if you opt in: anonymous **community benchmarks** (others see percentiles over the whole group, never your numbers) and an anonymous **research program** that publishes aggregate statistics, only over groups of at least 25 people.
 
-## Purchases
+## Your control
 
-If you buy AI Manager Pro, the purchase is handled by our payment provider (Lemon Squeezy), which receives the details you give at checkout, under its own privacy policy. We receive your email address and order details so we can send and support your license key. The app checks keys offline and doesn't contact any server to do so.
+Unlink a computer and delete its history, export everything we hold as JSON, or delete your account at any time from Settings.
 
-## Contact
+## The old desktop app
 
-Questions or requests: open an issue at [github.com/dadsadadsadad/ai-manager-showcase/issues](https://github.com/dadsadadsadad/ai-manager-showcase/issues).
+The discontinued AI Manager desktop app ran entirely on your computer and uploaded nothing. Its releases remain available but are no longer updated.
+
+Questions: open an issue at [github.com/dadsadadsadad/trackage-showcase/issues](https://github.com/dadsadadsadad/trackage-showcase/issues).
