@@ -1,5 +1,5 @@
 name: Feature request
-description: Suggest something AI Manager should track or do
+description: Suggest something Trackage should track or do
 labels: [enhancement]
 body:
   - type: textarea
@@ -17,4 +17,4 @@ body:
     id: agent
     attributes:
       label: Which agent is this about?
-      options: [Claude Code, Codex, Both, Something else]
+      options: [Claude Code, Codex, Gemini CLI, Qwen Code, OpenCode, ChatGPT, Several, Something else]

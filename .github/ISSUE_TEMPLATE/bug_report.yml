@@ -15,16 +15,16 @@ body:
   - type: input
     id: version
     attributes:
-      label: AI Manager version
-      description: Settings → Shortcuts & about.
-      placeholder: "0.3.0"
+      label: Trackage CLI version
+      description: Run `trackage --version`, or leave blank if this is about the website.
+      placeholder: "0.4.0"
     validations:
-      required: true
+      required: false
   - type: dropdown
     id: os
     attributes:
       label: Operating system
-      options: [Windows 11, Windows 10, macOS, Linux]
+      options: [Windows, macOS, Linux, Only the website]
     validations:
       required: true
   - type: checkboxes
@@ -34,7 +34,11 @@ body:
       options:
         - label: Claude Code
         - label: Codex
+        - label: Gemini CLI
+        - label: Qwen Code
+        - label: OpenCode
         - label: ChatGPT import
+        - label: Usage API
   - type: textarea
     id: extra
     attributes:

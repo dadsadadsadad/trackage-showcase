@@ -3,11 +3,13 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>AI Manager · See what your coding agents are doing</title>
-    <meta name="description" content="A desktop dashboard and pinned widget for Claude Code and Codex: live tokens, cost, context, rate limits, tasks and code changes. Runs on your PC; your data never leaves it." />
-    <meta property="og:title" content="AI Manager" />
-    <meta property="og:description" content="Live tokens, cost, context, limits, tasks and code changes for Claude Code and Codex. Runs on your PC." />
-    <meta property="og:image" content="https://dadsadadsadad.github.io/ai-manager-showcase/screenshots/overview.png" />
+    <title>Trackage · usage and cost for every AI agent</title>
+    <meta
+      name="description"
+      content="Tokens, cost, context, limits and outcomes for Claude Code, Codex, Gemini CLI, OpenCode, ChatGPT and your own apps, across every computer. Your prompts and code never leave your machine."
+    />
+    <meta property="og:title" content="Trackage" />
+    <meta property="og:description" content="One dashboard for every AI agent you run. Is your subscription worth it? What would it cost on another model?" />
     <meta name="theme-color" content="#0d0d0c" />
     <link rel="icon" href="assets/icon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -23,15 +25,11 @@
         --text-2: #b9b8b0;
         --muted: #7f7e77;
         --accent: #e8703f;
-        --blue: #3987e5;
         --good: #2fae6b;
         --sans: 'Geist', 'Segoe UI', system-ui, sans-serif;
       }
       * {
         box-sizing: border-box;
-      }
-      html {
-        scroll-behavior: smooth;
       }
       body {
         margin: 0;
@@ -47,7 +45,7 @@
         color: inherit;
       }
       .wrap {
-        max-width: 1120px;
+        max-width: 1080px;
         margin: 0 auto;
         padding: 0 24px;
       }
@@ -61,133 +59,93 @@
         display: flex;
         align-items: center;
         gap: 10px;
-        font-weight: 600;
+        font-weight: 700;
         text-decoration: none;
         margin-right: auto;
       }
       .logo img {
-        width: 30px;
-        height: 30px;
+        width: 28px;
+        height: 28px;
+        border-radius: 7px;
       }
       nav a.link {
         color: var(--text-2);
         text-decoration: none;
         font-size: 14.5px;
       }
-      nav a.link:hover {
-        color: var(--text);
-      }
-      .btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        padding: 12px 20px;
-        border-radius: 12px;
-        font-weight: 600;
-        font-size: 15px;
-        text-decoration: none;
-        border: 1px solid var(--border);
-        background: var(--surface);
-        transition:
-          transform 0.15s,
-          border-color 0.15s;
-      }
-      .btn:hover {
-        transform: translateY(-1px);
-        border-color: #3a3a37;
-      }
-      .btn.primary {
-        background: var(--accent);
-        border-color: var(--accent);
-        color: #fff;
-      }
-      .btn.sm {
-        padding: 8px 14px;
-        font-size: 14px;
-        border-radius: 10px;
-      }
-      .eyebrow {
-        font: 600 12px var(--sans);
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: var(--muted);
-      }
       .hero {
         text-align: center;
-        padding: 72px 0 40px;
+        padding: 70px 0 40px;
+      }
+      .pill {
+        display: inline-block;
+        border: 1px solid var(--border);
+        border-radius: 99px;
+        padding: 5px 14px;
+        font-size: 13px;
+        color: var(--text-2);
+        background: var(--surface);
       }
       h1 {
-        font: 700 clamp(42px, 6.4vw, 76px) / 1.02 var(--sans);
-        letter-spacing: -0.045em;
-        margin: 18px auto 20px;
-        max-width: 900px;
+        font-size: clamp(38px, 6vw, 68px);
+        line-height: 1.04;
+        letter-spacing: -0.035em;
+        margin: 20px 0;
       }
       h1 em {
         font-style: normal;
         color: var(--accent);
       }
       .lead {
-        font-size: 19px;
+        font-size: 18px;
         color: var(--text-2);
-        max-width: 640px;
-        margin: 0 auto 32px;
+        max-width: 680px;
+        margin: 0 auto;
       }
-      .ctas {
-        display: flex;
-        gap: 12px;
-        justify-content: center;
-        flex-wrap: wrap;
+      .cmd {
+        display: inline-block;
+        margin-top: 26px;
+        font-family: ui-monospace, monospace;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 10px 16px;
+        font-size: 14px;
       }
       .fine {
-        margin-top: 14px;
-        font: 500 13px var(--sans);
         color: var(--muted);
+        font-size: 13.5px;
+        margin-top: 14px;
       }
-      .shot {
-        margin: 56px auto 0;
-        border-radius: 18px;
-        overflow: hidden;
-        border: 1px solid var(--border);
-        box-shadow:
-          0 40px 120px rgba(0, 0, 0, 0.55),
-          0 0 0 1px rgba(255, 255, 255, 0.03) inset;
-      }
-      .shot img {
-        display: block;
-        width: 100%;
-        height: auto;
-      }
-      .works {
+      .agents {
         display: flex;
-        gap: 34px;
-        justify-content: center;
         flex-wrap: wrap;
-        padding: 44px 0 10px;
-        color: var(--text-2);
-        font-size: 15px;
+        gap: 8px;
+        justify-content: center;
+        margin: 26px 0 0;
       }
-      .works span::before {
-        content: '';
-        display: inline-block;
-        width: 9px;
-        height: 9px;
-        border-radius: 3px;
-        margin-right: 8px;
-        background: var(--c);
+      .agents span {
+        border: 1px solid var(--border);
+        border-radius: 99px;
+        padding: 4px 12px;
+        font-size: 13px;
+        background: var(--surface);
       }
       section {
-        padding: 90px 0 10px;
+        padding: 70px 0 0;
       }
       h2 {
-        font: 700 clamp(30px, 4.2vw, 44px) / 1.1 var(--sans);
-        margin: 10px 0 14px;
-        letter-spacing: -0.035em;
+        font-size: clamp(26px, 3.4vw, 38px);
+        letter-spacing: -0.03em;
+        margin: 0 0 22px;
+        line-height: 1.12;
       }
-      .sub {
-        color: var(--text-2);
-        max-width: 640px;
-        font-size: 17px;
-        margin: 0 0 36px;
+      .eyebrow {
+        color: var(--accent);
+        font-size: 13px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
       }
       .grid {
         display: grid;
@@ -201,125 +159,57 @@
         padding: 22px;
       }
       .card h3 {
-        margin: 12px 0 6px;
-        font-size: 17px;
+        margin: 0 0 8px;
+        font-size: 16.5px;
       }
       .card p {
         margin: 0;
         color: var(--text-2);
         font-size: 14.5px;
       }
-      .ic {
-        width: 38px;
-        height: 38px;
-        border-radius: 10px;
-        display: grid;
-        place-items: center;
-        background: rgba(232, 112, 63, 0.12);
-        color: var(--accent);
-        border: 1px solid rgba(232, 112, 63, 0.35);
-      }
       .split {
-        display: grid;
-        grid-template-columns: 1.15fr 1fr;
-        gap: 40px;
-        align-items: center;
-      }
-      .split img {
-        width: 100%;
-        border-radius: 14px;
-        border: 1px solid var(--border);
-      }
-      ul.check {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        display: grid;
-        gap: 12px;
-      }
-      ul.check li {
-        display: flex;
-        gap: 12px;
-        color: var(--text-2);
-      }
-      ul.check li::before {
-        content: '✓';
-        color: var(--good);
-        font-weight: 700;
-      }
-      ul.check.no li::before {
-        content: '✕';
-        color: var(--muted);
-      }
-      .two {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 14px;
       }
-      .price {
-        font: 700 44px/1 var(--sans);
-        letter-spacing: -0.04em;
-        margin: 10px 0 4px;
-      }
-      .card.pro {
-        border-color: rgba(232, 112, 63, 0.45);
-        background:
-          linear-gradient(160deg, rgba(232, 112, 63, 0.12), transparent 60%),
-          var(--surface);
-      }
-      .card ul.check {
-        margin-top: 18px;
+      ul.list {
+        margin: 0;
+        padding-left: 18px;
+        color: var(--text-2);
         font-size: 14.5px;
       }
-      details {
+      .yes h3 {
+        color: var(--good);
+      }
+      .no h3 {
+        color: #e66767;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14.5px;
+      }
+      th,
+      td {
+        text-align: left;
+        padding: 10px 12px;
         border-bottom: 1px solid var(--border);
-        padding: 18px 0;
       }
-      summary {
-        cursor: pointer;
-        font-weight: 600;
-        list-style: none;
-        display: flex;
-        justify-content: space-between;
-      }
-      summary::after {
-        content: '+';
-        color: var(--muted);
-        font-size: 20px;
-        line-height: 1;
-      }
-      details[open] summary::after {
-        content: '–';
-      }
-      details p {
-        color: var(--text-2);
-        margin: 10px 0 0;
-      }
-      .download {
-        text-align: center;
-        padding: 90px 0;
-      }
-      .download .card {
-        max-width: 760px;
-        margin: 0 auto;
-        padding: 40px;
+      th:not(:first-child),
+      td:not(:first-child) {
         text-align: center;
       }
       .note {
-        text-align: left;
         background: var(--surface-2);
         border: 1px solid var(--border);
         border-radius: 12px;
         padding: 16px 18px;
-        margin-top: 26px;
-        font-size: 14.5px;
         color: var(--text-2);
-      }
-      .note b {
-        color: var(--text);
+        font-size: 14.5px;
       }
       footer {
         border-top: 1px solid var(--border);
+        margin-top: 80px;
         padding: 30px 0 50px;
         color: var(--muted);
         font-size: 14px;
@@ -328,21 +218,16 @@
         display: flex;
         gap: 22px;
         flex-wrap: wrap;
-        align-items: center;
       }
       footer a {
         color: var(--text-2);
         text-decoration: none;
-      }
-      footer a:hover {
-        color: var(--text);
       }
       @media (max-width: 860px) {
         nav a.link {
           display: none;
         }
         .grid,
-        .two,
         .split {
           grid-template-columns: 1fr;
         }
@@ -355,223 +240,152 @@
   <body>
     <div class="wrap">
       <nav>
-        <a class="logo" href="#"><img src="assets/icon.png" alt="" />AI Manager</a>
-        <a class="link" href="#features">Features</a>
+        <a class="logo" href="#"><img src="assets/icon.png" alt="" />Trackage</a>
+        <a class="link" href="#why">Why</a>
         <a class="link" href="#privacy">Privacy</a>
         <a class="link" href="#pricing">Pricing</a>
-        <a class="link" href="#faq">FAQ</a>
-        <a class="btn sm primary" href="#download">Download</a>
+        <a class="link" href="https://github.com/dadsadadsadad/trackage-showcase/issues/new/choose">Feedback</a>
       </nav>
 
       <header class="hero">
-        <div class="eyebrow">For Claude Code and Codex</div>
-        <h1>See what your coding agents are <em>actually</em> doing.</h1>
+        <span class="pill">Launching soon</span>
+        <h1>Every AI agent you run.<br /><em>One honest dashboard.</em></h1>
         <p class="lead">
-          Live tokens, cost, context, rate limits, tasks and code changes, with a widget pinned to your screen and a ping when an agent finishes. It
-          runs on your PC, and your data stays there.
+          Tokens, cost, context, limits and outcomes for Claude Code, Codex, Gemini CLI, OpenCode, ChatGPT and your own apps, across every
+          computer you work on. Your prompts and code never leave your machine.
         </p>
-        <div class="ctas">
-          <a class="btn primary" href="#download">Download for Windows</a>
-          <a class="btn" href="#features">See what it tracks</a>
+        <div class="cmd">$ npx trackage</div>
+        <div class="fine">Free for one computer · Pro $9/month · no card to start</div>
+        <div class="agents">
+          <span>Claude Code</span><span>Codex</span><span>Gemini CLI</span><span>Qwen Code</span><span>OpenCode</span><span>ChatGPT</span
+          ><span>Any AI API</span>
         </div>
-        <div class="fine">Free · 14-day Pro trial · no account needed</div>
-        <div class="shot"><img src="screenshots/overview.png" alt="AI Manager overview dashboard" width="1424" height="855" /></div>
       </header>
 
-      <div class="works">
-        <span style="--c: #d95926">Claude Code</span>
-        <span style="--c: #3987e5">Codex CLI and desktop</span>
-        <span style="--c: #199e70">ChatGPT (import)</span>
-      </div>
-
-      <section id="features">
-        <div class="eyebrow">Features</div>
-        <h2>Everything your terminal doesn't show you.</h2>
-        <p class="sub">AI Manager reads the session logs your agents already save and turns them into answers: where the tokens went, what each task cost, and when to step in.</p>
+      <section id="why">
+        <div class="eyebrow">Why people switch</div>
+        <h2>Usage numbers are easy. Knowing what to do with them is the point.</h2>
         <div class="grid">
           <div class="card">
-            <div class="ic">◉</div>
-            <h3>Live, as it happens</h3>
-            <p>Every running agent with its context fill, burn rate, cost per hour and latest tool calls. Updates within a second.</p>
+            <h3>Every agent, every computer</h3>
+            <p>Claude Code on a laptop, Codex on a desktop, Gemini CLI on a server, your own GPT app. One timeline, one place to look.</p>
           </div>
           <div class="card">
-            <div class="ic">✓</div>
-            <h3>Tasks, not just tokens</h3>
-            <p>Each prompt as a task: did it finish, how long it took, how many steps, what it changed and what it cost.</p>
+            <h3>Is your subscription paying off?</h3>
+            <p>The API-equivalent value of your usage against what Claude Max, ChatGPT Pro or Google AI Ultra costs you.</p>
           </div>
           <div class="card">
-            <div class="ic">±</div>
-            <h3>Code changes</h3>
-            <p>Lines added and removed, by language, project and file, counted from the actual diffs your agents applied.</p>
+            <h3>What would it cost on another model?</h3>
+            <p>Your exact token mix priced on 12 models from 6 vendors, with cheaper same-vendor options for routine work.</p>
           </div>
           <div class="card">
-            <div class="ic">◔</div>
-            <h3>Limits and budgets</h3>
-            <p>Codex 5-hour and weekly windows, your Claude 5-hour block, and daily, weekly or monthly budgets with a month-end forecast.</p>
+            <h3>How do you compare?</h3>
+            <p>Opt-in, anonymous benchmarks: efficiency, cache reuse, cost per prompt and tool failures against other developers.</p>
           </div>
           <div class="card">
-            <div class="ic">!</div>
-            <h3>Alerts that matter</h3>
-            <p>A notification when an agent finishes, runs low on context, keeps failing a tool, or you near a budget.</p>
+            <h3>Hear about it in time</h3>
+            <p>Agent finished, context nearly full, tools failing, budget or limit close. In the app, by email, or in Slack and Discord.</p>
           </div>
           <div class="card">
-            <div class="ic">★</div>
-            <h3>Recap and achievements</h3>
-            <p>A wrapped-style recap with your agent archetype, a year of activity, and twenty achievements to unlock.</p>
+            <h3>A dashboard that's yours</h3>
+            <p>Drag, resize, add and remove cards. Several dashboards, themes, custom colors, glass or outline cards.</p>
           </div>
-        </div>
-      </section>
-
-      <section>
-        <div class="split">
-          <img src="screenshots/live.png" alt="Live sessions" loading="lazy" />
-          <div>
-            <div class="eyebrow">Live view</div>
-            <h2>Know when to look up.</h2>
-            <p class="sub">A strip across the top of every page shows what's running, with activity bars while an agent works. Pin the widget and it stays on top of your editor.</p>
-            <ul class="check">
-              <li>Context ring and 30-minute activity sparkline per session</li>
-              <li>Always-on-top widget, toggled with Ctrl+Alt+A</li>
-              <li>Desktop notification when a task is done</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <div class="split">
-          <div>
-            <div class="eyebrow">Analysis</div>
-            <h2>Find the expensive habits.</h2>
-            <p class="sub">See which projects, models and tools drive your usage, which tasks ran longest, and how efficiently each session used its cache and context.</p>
-            <ul class="check">
-              <li>Tasks with status, duration, steps and cost</li>
-              <li>Tool failure rates and context cost per tool</li>
-              <li>Model mix over time and cost per call</li>
-              <li>Efficiency score with the breakdown shown</li>
-            </ul>
-          </div>
-          <img src="screenshots/tasks.png" alt="Tasks" loading="lazy" />
         </div>
       </section>
 
       <section id="privacy">
-        <div class="eyebrow">Privacy and safety</div>
-        <h2>Your data never leaves your PC.</h2>
-        <p class="sub">There's no account and no cloud. AI Manager reads files your agents already wrote and shows them to you, and that's all.</p>
-        <div class="two">
-          <div class="card">
-            <h3>What it does</h3>
-            <ul class="check">
-              <li>Reads Claude Code and Codex session logs, without changing them</li>
-              <li>Saves its own settings in a folder in your user profile</li>
-              <li>Shows the dashboard only to this computer (127.0.0.1)</li>
-              <li>Blocks other websites from reading or changing its data</li>
+        <div class="eyebrow">Private by design</div>
+        <h2>Numbers go up. Your work stays down.</h2>
+        <div class="split">
+          <div class="card yes">
+            <h3>Sent</h3>
+            <ul class="list">
+              <li>Token counts, costs, timings</li>
+              <li>Model and tool names, success or failure</li>
+              <li>Context size, lines added and removed</li>
+              <li>A project label you choose (or a hash)</li>
             </ul>
           </div>
-          <div class="card">
-            <h3>What it never does</h3>
-            <ul class="check no">
-              <li>Upload your prompts, code or usage anywhere</li>
-              <li>Use analytics, ads or tracking</li>
-              <li>Ask for admin rights or install background services</li>
-              <li>Start with Windows unless you turn that on</li>
+          <div class="card no">
+            <h3>Never sent</h3>
+            <ul class="list">
+              <li>Prompts and replies</li>
+              <li>Code, diffs, file contents</li>
+              <li>Tool inputs and outputs, command arguments</li>
+              <li>Full paths, branch names, secrets</li>
             </ul>
           </div>
         </div>
+        <p class="note"><b>trackage sync --dry-run</b> prints the exact payload before anything leaves your computer.</p>
       </section>
 
       <section id="pricing">
         <div class="eyebrow">Pricing</div>
-        <h2>Free to use. Pro when you want more.</h2>
-        <p class="sub">Every install starts with 14 days of Pro. After that you keep the free plan, or upgrade.</p>
-        <div class="two">
-          <div class="card">
-            <div class="eyebrow">Free</div>
-            <div class="price">$0</div>
-            <div class="fine" style="margin: 0">forever</div>
-            <ul class="check">
-              <li>Live view, widget and alerts</li>
-              <li>Tasks, sessions, code, tools, models</li>
-              <li>Recap and achievements</li>
-              <li>Last 30 days of history</li>
-              <li>3 themes, light and dark</li>
-            </ul>
-          </div>
-          <div class="card pro">
-            <div class="eyebrow" style="color: var(--accent)">Pro</div>
-            <div class="price">$6<span style="font-size: 22px">/month</span></div>
-            <div class="fine" style="margin: 0">or $49 once, lifetime</div>
-            <ul class="check">
-              <li>Everything in Free</li>
-              <li>Unlimited history, even after logs are cleaned up</li>
-              <li>Budgets with spend and rate-limit alerts</li>
-              <li>CSV and JSON export</li>
-              <li>All themes and a custom accent color</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <section id="faq">
-        <div class="eyebrow">FAQ</div>
-        <h2>Questions</h2>
-        <details>
-          <summary>Is it safe to install?</summary>
-          <p>
-            Yes. It only reads your agents' log files and writes its own settings. Every release is scanned with Microsoft Defender before it's
-            published, it installs for your user only without asking for admin rights, and it uninstalls cleanly from Windows Settings.
-          </p>
-        </details>
-        <details>
-          <summary>Why does Windows say "Windows protected your PC"?</summary>
-          <p>
-            That's SmartScreen, which warns about apps that aren't code-signed yet or are new and not yet widely downloaded. It isn't a virus warning.
-            Click <b>More info</b>, then <b>Run anyway</b>.
-          </p>
-        </details>
-        <details>
-          <summary>Do I need to connect my Claude or OpenAI account?</summary>
-          <p>No. Claude Code and Codex already save session logs on your computer, and AI Manager reads those. Nothing to log into.</p>
-        </details>
-        <details>
-          <summary>What does "cost" mean if I'm on a subscription?</summary>
-          <p>
-            It's what the tokens would cost at API list prices. You aren't billed that on a Claude or ChatGPT plan, but it's the clearest way to compare
-            how heavy different work was.
-          </p>
-        </details>
-        <details>
-          <summary>Does it work on macOS or Linux?</summary>
-          <p>Windows builds are available now. macOS and Linux builds are set up and will be published with upcoming releases.</p>
-        </details>
-      </section>
-
-      <section class="download" id="download">
+        <h2>Start free. Pay when it saves you more than it costs.</h2>
         <div class="card">
-          <div class="eyebrow">Download</div>
-          <h2 style="margin-top: 8px">Get AI Manager</h2>
-          <p class="sub" style="margin: 0 auto 26px">Windows 10 and 11, 64-bit. About 120 MB.</p>
-          <div class="ctas">
-            <a class="btn primary" href="https://github.com/dadsadadsadad/ai-manager-showcase/releases/latest">Download for Windows</a>
-            <a class="btn" href="https://github.com/dadsadadsadad/ai-manager-showcase/releases">All releases</a>
-          </div>
-          <div class="note">
-            <b>First launch:</b> Windows may show "Windows protected your PC" because the app isn't code-signed yet. Click <b>More info → Run anyway</b>.
-            The installer asks where to install, adds a Start menu shortcut, and can be removed from <b>Settings → Apps</b>.
-          </div>
+          <table>
+            <thead>
+              <tr>
+                <th></th>
+                <th>Free</th>
+                <th>Pro · $9/mo or $84/yr</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Every supported agent</td>
+                <td>✓</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td>Computers</td>
+                <td>1</td>
+                <td>10</td>
+              </tr>
+              <tr>
+                <td>History</td>
+                <td>14 days</td>
+                <td>unlimited</td>
+              </tr>
+              <tr>
+                <td>Subscription value, model what-if</td>
+                <td>preview</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td>Tasks, code, budgets</td>
+                <td></td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td>Alerts</td>
+                <td>in the app</td>
+                <td>+ email, Slack, Discord</td>
+              </tr>
+              <tr>
+                <td>Weekly report, export, usage API</td>
+                <td></td>
+                <td>✓</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+      </section>
+
+      <section>
+        <p class="note">
+          Trackage replaces the <b>AI Manager</b> desktop app, which is discontinued. Its old releases remain on this repository for existing users
+          but receive no updates.
+        </p>
       </section>
     </div>
-
     <footer>
       <div class="wrap">
-        <span>© 2026 AI Manager</span>
-        <a href="https://github.com/dadsadadsadad/ai-manager-showcase/blob/main/PRIVACY.md">Privacy</a>
-        <a href="https://github.com/dadsadadsadad/ai-manager-showcase/blob/main/EULA.md">License</a>
-        <a href="https://github.com/dadsadadsadad/ai-manager-showcase/blob/main/SECURITY.md">Security</a>
-        <a href="https://github.com/dadsadadsadad/ai-manager-showcase/issues/new/choose">Support</a>
-        <a href="https://github.com/dadsadadsadad/ai-manager-showcase" style="margin-left: auto">GitHub</a>
+        <span>© 2026 Trackage</span>
+        <a href="https://github.com/dadsadadsadad/trackage-showcase/blob/main/PRIVACY.md">Privacy</a>
+        <a href="https://github.com/dadsadadsadad/trackage-showcase/blob/main/SECURITY.md">Security</a>
+        <a href="https://github.com/dadsadadsadad/trackage-showcase/issues/new/choose">Feedback</a>
+        <span>Not affiliated with Anthropic, OpenAI, Google or any AI provider.</span>
       </div>
     </footer>
   </body>
