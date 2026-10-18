@@ -1,4 +1,14 @@
-# AI Manager
+<p align="center"><img src="assets/icon.png" width="76" alt=""></p>
+
+<h1 align="center">AI Manager</h1>
+
+<p align="center">
+  <a href="https://dadsadadsadad.github.io/ai-manager-showcase/">Website</a> ·
+  <a href="https://github.com/dadsadadsadad/ai-manager-showcase/releases/latest">Download</a> ·
+  <a href="PRIVACY.md">Privacy</a> ·
+  <a href="SECURITY.md">Security</a> ·
+  <a href="https://github.com/dadsadadsadad/ai-manager-showcase/issues/new/choose">Support</a>
+</p>
 
 A desktop app that shows what your coding agents are doing and what they cost. It tracks Claude Code and Codex live: tokens, spend, context, rate limits, tasks, lines of code, and which tools eat your context window. It also tells you when an agent has finished, so you can stop watching the terminal.
 
@@ -10,12 +20,18 @@ Everything runs on your computer. AI Manager reads the session logs Claude Code 
 
 ## Download
 
-Get the latest installer from [Releases](https://github.com/dadsadadsadad/ai-manager-showcase/releases).
+Get the latest version from [Releases](https://github.com/dadsadadsadad/ai-manager-showcase/releases/latest). Windows 10 and 11, 64-bit.
 
-- **Windows**: `AI.Manager.Setup.x.y.z.exe` installs it; `AI.Manager.x.y.z.exe` is a portable version that needs no install.
-- Open it and it finds your Claude Code and Codex logs on its own. It keeps running in the tray when you close the window.
+- **`AI-Manager-Setup-x.y.z.exe`**: the installer. It asks where to install, adds Start menu and desktop shortcuts, installs for your user only (no admin rights), and uninstalls from **Settings → Apps**.
+- **`AI-Manager-x.y.z-portable.exe`**: runs without installing.
 
-The installer isn't code-signed yet, so Windows SmartScreen may warn you the first time. Click **More info → Run anyway**.
+Open it and it finds your Claude Code and Codex logs on its own. It keeps running in the tray when you close the window.
+
+### Is it safe?
+
+Yes. AI Manager only reads the log files your agents already save and writes its own settings to a folder in your user profile. It doesn't upload anything, has no telemetry, and its dashboard is only reachable from your own computer. Every release is scanned with Microsoft Defender before publishing. Details in [PRIVACY.md](PRIVACY.md) and [SECURITY.md](SECURITY.md).
+
+**Why Windows shows a warning:** the app isn't code-signed yet, so SmartScreen shows "Windows protected your PC" the first time. That's a reputation check for new, unsigned apps, not a virus detection. Click **More info → Run anyway**.
 
 ## Why
 
@@ -80,3 +96,7 @@ New installs get 14 days of Pro to try everything.
 - **Cost**: what the tokens would cost at API list prices. On a subscription you aren't billed per token, but it's the clearest way to compare how heavy different work was.
 - **Claude limits**: Claude Code doesn't log its rate limit, so the app tracks your current 5-hour block against your biggest one. Codex logs its 5-hour and weekly windows, so those are exact.
 - **Built with**: Node, React, Recharts and Electron, with a local HTTP + WebSocket server.
+
+## License
+
+AI Manager is proprietary software; see the [EULA](EULA.md). The free plan is free to use. Pro requires a license key.
