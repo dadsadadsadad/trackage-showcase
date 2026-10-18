@@ -12,7 +12,7 @@ Everything runs on your computer. AI Manager reads the session logs Claude Code 
 
 Get the latest installer from [Releases](https://github.com/dadsadadsadad/ai-manager-showcase/releases).
 
-- **Windows**: `AI Manager Setup x.y.z.exe` installs it; `AI Manager x.y.z.exe` is a portable version that needs no install.
+- **Windows**: `AI.Manager.Setup.x.y.z.exe` installs it; `AI.Manager.x.y.z.exe` is a portable version that needs no install.
 - Open it and it finds your Claude Code and Codex logs on its own. It keeps running in the tray when you close the window.
 
 The installer isn't code-signed yet, so Windows SmartScreen may warn you the first time. Click **More info → Run anyway**.
