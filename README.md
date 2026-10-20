@@ -45,24 +45,24 @@ Coding agents spend tokens in ways that are hard to see, and most people now use
 
 ## Plans
 
-|                                   | Free             | Pro ($9/mo or $84/yr)          | Team ($15 per person a month) |
-| --------------------------------- | ---------------- | ------------------------------ | ----------------------------- |
-| Every supported agent             | ✓                | ✓                              | ✓                             |
-| Computers                         | 1                | 10                             | 10 per person                 |
-| History                           | 14 days          | unlimited                      | unlimited                     |
-| Live view, dashboard, sessions    | ✓                | ✓                              | ✓                             |
-| Ways to spend less                | ✓                | ✓                              | ✓                             |
-| Subscription value, model what-if | preview          | ✓                              | ✓                             |
-| Tasks, code, budgets              |                  | ✓                              | ✓                             |
-| Alerts                            | in the app       | + phone, email, Slack, Discord | ✓                             |
-| Bill matching                     |                  | ✓                              | ✓                             |
-| Benchmarks                        | efficiency score | every metric                   | every metric                  |
-| Weekly report, export, usage API  |                  | ✓                              | ✓                             |
-| Team view and shared budget       |                  |                                | ✓                             |
+|                                   | Free             | Pro ($9/mo or $84/yr)          | Team ($15 or $144 per person)  |
+| --------------------------------- | ---------------- | ------------------------------ | ------------------------------ |
+| Every supported agent             | ✓                | ✓                              | ✓                              |
+| Computers                         | 1                | 10                             | 10 per person                  |
+| History                           | 14 days          | unlimited                      | unlimited                      |
+| Live view, dashboard, sessions    | ✓                | ✓                              | ✓                              |
+| Ways to spend less                | ✓                | ✓                              | ✓                              |
+| Subscription value, model what-if | preview          | ✓                              | ✓                              |
+| Tasks, code, budgets              |                  | ✓                              | ✓                              |
+| Alerts                            | in the app       | + phone, email, Slack, Discord | + phone, email, Slack, Discord |
+| Bill matching                     |                  | ✓                              | ✓                              |
+| Benchmarks                        | efficiency score | every metric                   | every metric                   |
+| Weekly report, export, usage API  |                  | ✓                              | ✓                              |
+| Team view and shared budget       |                  |                                | ✓                              |
 
 ## How your data is handled
 
-A small CLI (`npx trackage`) reads the logs your agents already save and sends **numbers only**: token counts, costs, timings, model and tool names, success or failure. Never prompts, replies, code, diffs, tool output or full paths. `trackage sync --dry-run` prints every byte before anything is sent, and the [collector's source](https://github.com/dadsadadsadad/trackage-cli) is open for anyone to read. Details in [PRIVACY.md](PRIVACY.md).
+A small collector (`npx trackage`) reads the logs your agents already save and sends **numbers only**: token counts, timings, model and tool names, success or failure. Never prompts, session titles, replies, code, diffs, tool output or paths. `trackage sync --dry-run` prints every byte before anything is sent, and the [collector's source](https://github.com/dadsadadsadad/trackage-cli) is open for anyone to read. Details in [PRIVACY.md](PRIVACY.md).
 
 ## License
 

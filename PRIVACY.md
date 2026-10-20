@@ -8,11 +8,11 @@ Trackage is a website plus a small command-line collector. The full privacy poli
 
 Per agent session: token counts, timestamps, model names, tool names with success or failure, context size, lines added and removed, and a project label you control (or a hash, or nothing). Session and file ids are anonymised with a secret that stays on your computer.
 
-At the **standard** level it also sends command names without arguments (for example `npm test`) and anonymous file ids with only the extension. At the **detailed** level, which is off by default, it adds session titles, short prompt previews and file paths inside the project.
+At the **standard** level (the default) it also sends command names without arguments (for example `npm test`), skill and subagent names, and anonymous file ids that keep only the extension. The **strict** level leaves those out.
 
 ## What is never sent
 
-Full prompts, model replies, code, diffs, file contents, tool inputs and outputs, shell command arguments, absolute paths, branch names, environment variables or secrets. The server rejects any upload that contains free text.
+Prompts, session titles, model replies, code, diffs, file contents, tool inputs and outputs, shell command arguments, paths, branch names, environment variables or secrets. The server rejects any upload that contains free text.
 
 Run `trackage sync --dry-run` to see the exact payload before anything leaves your machine, or read the [collector's source](https://github.com/dadsadadsadad/trackage-cli).
 

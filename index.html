@@ -6,38 +6,54 @@
     <title>Trackage · usage and cost for every AI agent</title>
     <meta
       name="description"
-      content="Tokens, cost, context, limits and outcomes for Claude Code, Codex, Gemini CLI, OpenCode, ChatGPT and your own apps, across every computer. Your prompts and code never leave your machine."
+      content="Tokens, cost, context and tool use for Claude Code, Codex, Gemini CLI, OpenCode and more, across every computer you work on. Only numbers are uploaded; your prompts and code stay on your machine."
     />
     <meta property="og:title" content="Trackage" />
     <meta
       property="og:description"
-      content="One dashboard for every AI agent you run. Is your subscription worth it? What would it cost on another model?"
+      content="Know what your coding agents cost, and why. Numbers only; your prompts and code stay on your machine."
     />
-    <meta name="theme-color" content="#0d0d0c" />
+    <meta name="theme-color" content="#151513" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f6f5f1" media="(prefers-color-scheme: light)" />
     <link rel="icon" href="assets/icon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono&display=swap" rel="stylesheet" />
     <style>
       :root {
-        --bg: #0d0d0c;
-        --surface: #151514;
-        --surface-2: #1d1d1b;
-        --border: #262624;
-        --text: #f0efec;
-        --text-2: #b9b8b0;
-        --muted: #7f7e77;
+        --bg: #151513;
+        --surface: #1c1c1a;
+        --border: #2b2b28;
+        --text: #ecebe6;
+        --text-2: #b3b1a9;
+        --muted: #85837b;
         --accent: #e8703f;
-        --good: #2fae6b;
+        --good: #3fae72;
+        --bad: #e0614f;
         --sans: 'Geist', 'Segoe UI', system-ui, sans-serif;
+        --mono: 'Geist Mono', ui-monospace, Consolas, monospace;
+        color-scheme: dark;
+      }
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg: #f6f5f1;
+          --surface: #ffffff;
+          --border: #e4e1d8;
+          --text: #1f1e1b;
+          --text-2: #55534c;
+          --muted: #85837b;
+          --good: #23864f;
+          --bad: #c2412f;
+          color-scheme: light;
+        }
       }
       * {
         box-sizing: border-box;
       }
       body {
         margin: 0;
-        background: radial-gradient(1100px 500px at 10% -10%, rgba(232, 112, 63, 0.14), transparent 60%),
-          radial-gradient(900px 400px at 100% 10%, rgba(57, 135, 229, 0.07), transparent 60%), var(--bg);
+        background: radial-gradient(900px 420px at 50% -120px, color-mix(in srgb, var(--accent) 14%, transparent), transparent 70%),
+          var(--bg);
         color: var(--text);
         font: 16px/1.6 var(--sans);
         -webkit-font-smoothing: antialiased;
@@ -45,323 +61,345 @@
       a {
         color: inherit;
       }
+      a:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 3px;
+        border-radius: 4px;
+      }
       .wrap {
-        max-width: 1080px;
+        max-width: 1100px;
         margin: 0 auto;
         padding: 0 24px;
       }
       nav {
         display: flex;
         align-items: center;
-        gap: 28px;
-        padding: 22px 0;
+        gap: 24px;
+        padding: 18px 0;
       }
       .logo {
         display: flex;
         align-items: center;
         gap: 10px;
-        font-weight: 700;
+        font-weight: 650;
         text-decoration: none;
         margin-right: auto;
       }
       .logo img {
-        width: 28px;
-        height: 28px;
+        width: 26px;
+        height: 26px;
         border-radius: 7px;
       }
       nav a.link {
         color: var(--text-2);
         text-decoration: none;
-        font-size: 14.5px;
+        font-size: 14px;
+      }
+      nav a.link:hover {
+        color: var(--text);
       }
       .hero {
         text-align: center;
-        padding: 70px 0 40px;
+        padding: 64px 0 32px;
       }
       .pill {
         display: inline-block;
         border: 1px solid var(--border);
         border-radius: 99px;
-        padding: 5px 14px;
+        padding: 4px 12px;
         font-size: 13px;
         color: var(--text-2);
         background: var(--surface);
       }
       h1 {
-        font-size: clamp(38px, 6vw, 68px);
+        font-size: clamp(36px, 6vw, 64px);
         line-height: 1.04;
         letter-spacing: -0.035em;
-        margin: 20px 0;
-      }
-      h1 em {
-        font-style: normal;
-        color: var(--accent);
+        font-weight: 680;
+        margin: 20px auto 18px;
+        max-width: 860px;
       }
       .lead {
-        font-size: 18px;
-        color: var(--text-2);
         max-width: 680px;
         margin: 0 auto;
+        color: var(--text-2);
+        font-size: 17px;
       }
       .cmd {
         display: inline-block;
         margin-top: 26px;
-        font-family: ui-monospace, monospace;
-        background: var(--surface);
+        font: 14px var(--mono);
         border: 1px solid var(--border);
+        background: var(--surface);
         border-radius: 10px;
-        padding: 10px 16px;
-        font-size: 14px;
+        padding: 9px 16px;
+      }
+      .cmd span {
+        color: var(--muted);
       }
       .fine {
         color: var(--muted);
         font-size: 13.5px;
-        margin-top: 14px;
+        margin-top: 12px;
       }
       .agents {
         display: flex;
         flex-wrap: wrap;
-        gap: 8px;
         justify-content: center;
-        margin: 26px 0 0;
+        gap: 8px;
+        margin: 40px auto 0;
+        max-width: 860px;
       }
       .agents span {
+        font-size: 13px;
         border: 1px solid var(--border);
         border-radius: 99px;
         padding: 4px 12px;
-        font-size: 13px;
-        background: var(--surface);
+        color: var(--text-2);
       }
       section {
-        padding: 70px 0 0;
+        padding: 56px 0 8px;
       }
       h2 {
-        font-size: clamp(26px, 3.4vw, 38px);
-        letter-spacing: -0.03em;
-        margin: 0 0 22px;
-        line-height: 1.12;
-      }
-      .eyebrow {
-        color: var(--accent);
-        font-size: 13px;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.06em;
-      }
-      .grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 14px;
-      }
-      .card {
-        background: var(--surface);
-        border: 1px solid var(--border);
-        border-radius: 16px;
-        padding: 22px;
-      }
-      .card h3 {
+        font-size: clamp(26px, 3.4vw, 34px);
+        letter-spacing: -0.025em;
+        line-height: 1.15;
         margin: 0 0 8px;
-        font-size: 16.5px;
+        font-weight: 650;
       }
-      .card p {
-        margin: 0;
+      .sub {
         color: var(--text-2);
-        font-size: 14.5px;
+        margin: 0 0 24px;
+        max-width: 680px;
+      }
+      .questions {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1px;
+        background: var(--border);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        overflow: hidden;
+      }
+      .questions div {
+        background: var(--surface);
+        padding: 18px;
+        display: grid;
+        gap: 6px;
+        align-content: start;
+      }
+      .questions b {
+        font-size: 15px;
+        line-height: 1.35;
+      }
+      .questions span {
+        color: var(--text-2);
+        font-size: 14px;
+        line-height: 1.5;
       }
       .split {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 14px;
       }
-      ul.list {
-        margin: 0;
-        padding-left: 18px;
-        color: var(--text-2);
-        font-size: 14.5px;
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 20px;
+      }
+      .card h3 {
+        margin: 0 0 10px;
+        font-size: 15px;
       }
       .yes h3 {
         color: var(--good);
       }
       .no h3 {
-        color: #e66767;
+        color: var(--bad);
+      }
+      ul.list {
+        margin: 0;
+        padding-left: 18px;
+        color: var(--text-2);
+        font-size: 14.5px;
+        display: grid;
+        gap: 4px;
+      }
+      .note {
+        margin: 14px 0 0;
+        color: var(--text-2);
+        font-size: 14.5px;
+      }
+      code {
+        font: 13.5px var(--mono);
+        color: var(--text);
+      }
+      .table-wrap {
+        overflow-x: auto;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        background: var(--surface);
       }
       table {
         width: 100%;
         border-collapse: collapse;
-        font-size: 14.5px;
+        font-size: 14px;
+        min-width: 640px;
       }
       th,
       td {
-        text-align: left;
-        padding: 10px 12px;
+        padding: 11px 16px;
+        text-align: center;
         border-bottom: 1px solid var(--border);
       }
-      th:not(:first-child),
-      td:not(:first-child) {
-        text-align: center;
+      th {
+        font-weight: 600;
       }
-      .note {
-        background: var(--surface-2);
-        border: 1px solid var(--border);
-        border-radius: 12px;
-        padding: 16px 18px;
+      th:first-child,
+      td:first-child {
+        text-align: left;
         color: var(--text-2);
-        font-size: 14.5px;
+      }
+      tbody tr:last-child td {
+        border-bottom: 0;
+      }
+      td.dim {
+        color: var(--muted);
       }
       footer {
+        margin-top: 64px;
         border-top: 1px solid var(--border);
-        margin-top: 80px;
-        padding: 30px 0 50px;
+        padding: 24px 0 40px;
+        font-size: 13px;
         color: var(--muted);
-        font-size: 14px;
       }
       footer .wrap {
         display: flex;
-        gap: 22px;
         flex-wrap: wrap;
+        gap: 8px 20px;
       }
       footer a {
         color: var(--text-2);
         text-decoration: none;
       }
-      @media (max-width: 860px) {
-        nav a.link {
-          display: none;
+      footer a:hover {
+        color: var(--text);
+      }
+      @media (max-width: 900px) {
+        .questions {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
         }
-        .grid,
-        .split {
-          grid-template-columns: 1fr;
+      }
+      @media (max-width: 640px) {
+        .wrap {
+          padding: 0 16px;
+        }
+        nav a.link.optional {
+          display: none;
         }
         .hero {
           padding-top: 40px;
+        }
+        .questions,
+        .split {
+          grid-template-columns: 1fr;
         }
       }
     </style>
   </head>
   <body>
     <div class="wrap">
-      <nav>
-        <a class="logo" href="#"><img src="assets/icon.png" alt="" />Trackage</a>
-        <a class="link" href="#why">Why</a>
-        <a class="link" href="#privacy">Privacy</a>
+      <nav aria-label="Main">
+        <a class="logo" href="./"><img src="assets/icon.png" alt="" />Trackage</a>
+        <a class="link optional" href="#questions">What it answers</a>
+        <a class="link optional" href="#privacy">What is sent</a>
         <a class="link" href="#pricing">Pricing</a>
-        <a class="link" href="https://github.com/dadsadadsadad/trackage-showcase/issues/new/choose">Feedback</a>
+        <a class="link" href="https://github.com/dadsadadsadad/trackage-cli">Collector</a>
       </nav>
 
       <header class="hero">
         <span class="pill">Launching soon</span>
-        <h1>Every AI agent you run.<br /><em>One honest dashboard.</em></h1>
+        <h1>Know what your coding agents cost, and why.</h1>
         <p class="lead">
-          Tokens, cost, context, limits and outcomes for Claude Code, Codex, Gemini CLI, OpenCode, Cline, Aider, ChatGPT and your own apps,
-          across every computer you work on. What went wrong, and how to do the same work for less. Your prompts and code never leave your
-          machine.
+          Trackage reads the logs Claude Code, Codex, Gemini CLI and the other agents already keep on your computer, and shows tokens, cost,
+          context and tool use for every session, project and model, across all your machines. Only numbers are uploaded; your prompts and
+          code stay where they are.
         </p>
-        <div class="cmd">$ npx trackage</div>
-        <div class="fine">Free for one computer · Pro $9/month · Team $15 per person · no card to start</div>
-        <div class="agents">
+        <div class="cmd"><span>$</span> npx trackage</div>
+        <div class="fine">Free for one computer and 14 days of history. Pro $9 a month. Team $15 per person a month. No card to start.</div>
+        <div class="agents" aria-label="Works with">
           <span>Claude Code</span><span>Codex</span><span>Gemini CLI</span><span>Qwen Code</span><span>OpenCode</span><span>Cline</span
-          ><span>Roo Code</span><span>Kilo Code</span><span>Aider</span><span>ChatGPT</span><span>Any AI API</span>
+          ><span>Roo Code</span><span>Kilo Code</span><span>Aider</span><span>ChatGPT exports</span><span>Your own API apps</span>
         </div>
       </header>
 
-      <section id="why">
-        <div class="eyebrow">Why people switch</div>
-        <h2>Usage numbers are easy. Knowing what to do with them is the point.</h2>
-        <div class="grid">
-          <div class="card">
-            <h3>Every agent, every computer</h3>
-            <p>Claude Code on a laptop, Codex on a desktop, Gemini CLI on a server, your own GPT app. One timeline, one place to look.</p>
+      <section id="questions">
+        <h2>Questions it answers</h2>
+        <p class="sub">Each one is a click away, for one agent or all of them, for today or the whole year.</p>
+        <div class="questions">
+          <div><b>Which project cost the most this month?</b><span>Filter everything to one project, agent or computer.</span></div>
+          <div><b>Is my Claude Max plan worth $100?</b><span>What your usage would cost at API prices, plan by plan.</span></div>
+          <div>
+            <b>Why did that one session cost $9?</b><span>Context growth call by call, every tool result and when it compacted.</span>
           </div>
-          <div class="card">
-            <h3>Is your subscription paying off?</h3>
-            <p>The API-equivalent value of your usage against what Claude Max, ChatGPT Pro or Google AI Ultra costs you.</p>
+          <div><b>Would a cheaper model have done it?</b><span>Your exact token mix priced on twelve models.</span></div>
+          <div><b>Which tools keep failing?</b><span>Failure rate per tool, MCP server and shell command.</span></div>
+          <div><b>How close am I to my rate limit?</b><span>Codex windows and Claude 5-hour blocks, with when they reset.</span></div>
+          <div>
+            <b>Does my invoice match what I used?</b><span>Anthropic and OpenAI’s daily charges next to what Trackage counted.</span>
           </div>
-          <div class="card">
-            <h3>What would it cost on another model?</h3>
-            <p>Your exact token mix priced on 12 models from 6 vendors, with cheaper same-vendor options for routine work.</p>
-          </div>
-          <div class="card">
-            <h3>How do you compare?</h3>
-            <p>Opt-in, anonymous benchmarks: efficiency, cache reuse, cost per prompt and tool failures against other developers.</p>
-          </div>
-          <div class="card">
-            <h3>Hear about it in time</h3>
-            <p>
-              Agent finished, context nearly full, tools failing, budget or limit close. In the app, on your phone, by email, or in Slack
-              and Discord.
-            </p>
-          </div>
-          <div class="card">
-            <h3>What went wrong, and what it cost</h3>
-            <p>
-              Every prompt checked for cache rebuilds, failing tools, oversized results and models bigger than the job, each fix with what
-              it would have saved.
-            </p>
-          </div>
-          <div class="card">
-            <h3>Your team, in one view</h3>
-            <p>
-              Spend by person, project, agent and model, with a shared monthly budget. Members keep any project private; the team sees
-              numbers only.
-            </p>
-          </div>
-          <div class="card">
-            <h3>Does the bill match?</h3>
-            <p>
-              Anthropic and OpenAI's daily charges next to what Trackage counted, so you know what you're paying for and what's coming from
-              elsewhere.
-            </p>
-          </div>
-          <div class="card">
-            <h3>A dashboard that's yours</h3>
-            <p>
-              Drag, resize, add and remove cards. Several dashboards, themes, chart styles and palettes, including a colorblind-safe one.
-            </p>
+          <div>
+            <b>What is the whole team spending?</b><span>Spend by person, project, agent and model, with a shared monthly budget.</span>
           </div>
         </div>
       </section>
 
       <section id="privacy">
-        <div class="eyebrow">Private by design</div>
-        <h2>Numbers go up. Your work stays down.</h2>
+        <h2>What leaves your computer</h2>
+        <p class="sub">
+          The collector builds each upload field by field from an allow-list and checks it before sending. The server checks it again and
+          rejects anything with text in it.
+        </p>
         <div class="split">
           <div class="card yes">
             <h3>Sent</h3>
             <ul class="list">
-              <li>Token counts, costs, timings</li>
+              <li>Token counts and timings</li>
               <li>Model and tool names, success or failure</li>
-              <li>Context size, lines added and removed</li>
-              <li>A project label you choose (or a hash)</li>
+              <li>Context size, compactions, lines added and removed</li>
+              <li>A project label you choose, a hash, or nothing</li>
             </ul>
           </div>
           <div class="card no">
             <h3>Never sent</h3>
             <ul class="list">
-              <li>Prompts and replies</li>
-              <li>Code, diffs, file contents</li>
+              <li>Prompts, replies and session titles</li>
+              <li>Code, diffs and file contents</li>
               <li>Tool inputs and outputs, command arguments</li>
-              <li>Full paths, branch names, secrets</li>
+              <li>Paths, file names, branch names, secrets</li>
             </ul>
           </div>
         </div>
         <p class="note">
-          <b>trackage sync --dry-run</b> prints the exact payload before anything leaves your computer, and the collector is
-          <a href="https://github.com/dadsadadsadad/trackage-cli">open source</a>
-          under the MIT license.
+          <code>trackage sync --dry-run</code> prints the exact payload and sends nothing. The collector is
+          <a href="https://github.com/dadsadadsadad/trackage-cli">open source</a> under the MIT license.
         </p>
       </section>
 
       <section id="pricing">
-        <div class="eyebrow">Pricing</div>
-        <h2>Start free. Pay when it saves you more than it costs.</h2>
-        <div class="card">
+        <h2>Pricing</h2>
+        <p class="sub">
+          Start free. Pro is $9 a month or $84 a year. Team is $15 per person a month or $144 a year, and everyone on it gets Pro.
+        </p>
+        <div class="table-wrap">
           <table>
             <thead>
               <tr>
-                <th></th>
-                <th>Free</th>
-                <th>Pro · $9/mo or $84/yr</th>
-                <th>Team · $15 per person/mo</th>
+                <th scope="col"><span hidden>Feature</span></th>
+                <th scope="col">Free</th>
+                <th scope="col">Pro</th>
+                <th scope="col">Team</th>
               </tr>
             </thead>
             <tbody>
@@ -384,6 +422,12 @@
                 <td>unlimited</td>
               </tr>
               <tr>
+                <td>Live view, dashboard, sessions, ways to spend less</td>
+                <td>✓</td>
+                <td>✓</td>
+                <td>✓</td>
+              </tr>
+              <tr>
                 <td>Subscription value, model what-if</td>
                 <td>preview</td>
                 <td>✓</td>
@@ -391,7 +435,7 @@
               </tr>
               <tr>
                 <td>Tasks, code, budgets, bill matching</td>
-                <td></td>
+                <td class="dim">–</td>
                 <td>✓</td>
                 <td>✓</td>
               </tr>
@@ -399,18 +443,18 @@
                 <td>Alerts</td>
                 <td>in the app</td>
                 <td>+ phone, email, Slack, Discord</td>
-                <td>✓</td>
+                <td>+ phone, email, Slack, Discord</td>
               </tr>
               <tr>
                 <td>Weekly report, export, usage API</td>
-                <td></td>
+                <td class="dim">–</td>
                 <td>✓</td>
                 <td>✓</td>
               </tr>
               <tr>
                 <td>Team view and shared budget</td>
-                <td></td>
-                <td></td>
+                <td class="dim">–</td>
+                <td class="dim">–</td>
                 <td>✓</td>
               </tr>
             </tbody>
@@ -420,8 +464,8 @@
 
       <section>
         <p class="note">
-          Trackage replaces the <b>AI Manager</b> desktop app, which is discontinued. Its old releases remain on this repository for
-          existing users but receive no updates.
+          Trackage replaces the AI Manager desktop app, which is discontinued. Its old releases stay on this repository for existing users
+          but get no updates.
         </p>
       </section>
     </div>

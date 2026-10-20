@@ -15,9 +15,9 @@ body:
   - type: input
     id: version
     attributes:
-      label: Trackage CLI version
+      label: Collector version
       description: Run `trackage --version`, or leave blank if this is about the website.
-      placeholder: "0.4.0"
+      placeholder: '0.8.0'
     validations:
       required: false
   - type: dropdown
@@ -37,6 +37,8 @@ body:
         - label: Gemini CLI
         - label: Qwen Code
         - label: OpenCode
+        - label: Cline, Roo Code or Kilo Code
+        - label: Aider
         - label: ChatGPT import
         - label: Usage API
   - type: textarea
