@@ -17,4 +17,4 @@ body:
     id: agent
     attributes:
       label: Which agent is this about?
-      options: [Claude Code, Codex, Gemini CLI, Qwen Code, OpenCode, ChatGPT, Several, Something else]
+      options: [Claude Code, Codex, Gemini CLI, Qwen Code, OpenCode, Cline, Roo Code, Kilo Code, Aider, ChatGPT, Several, Something else]
